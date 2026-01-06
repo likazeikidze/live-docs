@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-blue-100: #b4c6ee;
+  --color-blue-400: #417bff;
+  --color-blue-500: #3371ff;
+  --color-red-400: #dd4f56;
+  --color-red-500: #dc4349;
+  --color-dark-100: #09111f;
+  --color-dark-200: #0b1527;
+  --color-dark-300: #0f1c34;
+  --color-dark-350: #12213b;
+  --color-dark-400: #27344d;
+  --color-dark-500: #2e3d5b;
+
+  --container-padding: 2rem;
+  --container-2xl: 1400px;
+  --container-xs: 360px;
+}
+
+:root {
+  --background: #09111f;
+  --foreground: #fff;
+}
+
+.dark {
+  --background: #fff;
+  --foreground: #09111f;
+}
+
+@layer base {
+  body {
+    @apply bg-(--background) text-(--foreground) font-sans;
+    margin: 0;
+  }
+
+  h1 {
+    @apply text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-bold;
+  }
+
+  h3 {
+    @apply text-2xl font-bold;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #09090a;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #2e3d5b;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7878a3;
+  }
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (min-width: 2xl) {
+  .container {
+    max-width: var(--container-2xl);
+  }
+}
+
+@media (min-width: 360px) {
+  .container {
+    max-width: var(--container-xs);
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@layer utilities {
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+
+  .text-28-semibold {
+    @apply text-[28px] font-semibold;
+  }
+  .text-10-regular {
+    @apply text-[10px] font-normal;
+  }
+
+  .gradient-blue {
+    @apply bg-linear-to-t from-(--color-blue-500) to-(--color-blue-400);
+  }
+  .gradient-red {
+    @apply bg-linear-to-t from-(--color-red-500) to-(--color-red-400);
+  }
+}
