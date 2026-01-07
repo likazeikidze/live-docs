@@ -9,11 +9,24 @@ import MenuBar from "./MenuBar";
 const Tiptap = () => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
-      Highlight,
+      StarterKit.configure({
+        bulletList: {
+          HTMLAttributes: {
+            class: "list-disc ml-3",
+          },
+        },
+        orderedList: {
+          HTMLAttributes: {
+            class: "list-decimal ml-3",
+          },
+        },
+      }),
+      Highlight.configure({
+        multicolor: true,
+      }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    content: "",
+    content: "<p></p>",
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
     editorProps: {

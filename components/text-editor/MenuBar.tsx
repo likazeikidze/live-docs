@@ -1,3 +1,5 @@
+import { MenuBarProps } from "@/types";
+
 import { Toggle } from "@radix-ui/react-toggle";
 import {
   Heading1,
@@ -11,14 +13,13 @@ import {
   AlignRight,
   ListOrdered,
   List,
+  HighlighterIcon,
 } from "lucide-react";
 
-const MenuBar = ({ editor }: { editor: Editor | null }) => {
+const MenuBar = ({ editor }: MenuBarProps) => {
   if (!editor) {
     return null;
   }
-
-  console.log(editor.commands);
 
   const options = [
     {
@@ -40,6 +41,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       icon: <Bold className="size-4" />,
       onClick: () => editor.chain().focus().toggleBold().run(),
       pressed: editor.isActive("bold"),
+      disabled: editor.state.selection.empty,
     },
     {
       icon: <Italic className="size-4" />,
@@ -76,6 +78,13 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
       onClick: () => editor.chain().focus().toggleOrderedList().run(),
       pressed: editor.isActive("orderedList"),
     },
+
+    {
+      icon: <HighlighterIcon className="size-4" />,
+      onClick: () =>
+        editor.chain().focus().toggleHighlight({ color: "#c90414" }).run(),
+      pressed: editor.isActive("highlight", { color: "#c90414" }),
+    },
   ];
 
   return (
@@ -86,15 +95,7 @@ const MenuBar = ({ editor }: { editor: Editor | null }) => {
             key={index}
             pressed={option.pressed}
             onClick={option.onClick}
-            className="
-    inline-flex h-9 w-9 items-center justify-center
-    rounded-md
-    text-slate-700
-    hover:bg-slate-100
-    data-[state=on]:bg-slate-200
-    data-[state=on]:text-slate-900
-    transition
-  "
+            className=" inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-700 hover:bg-slate-100 data-[state=on]:bg-slate-200 data-[state=on]:text-slate-900 transition"
           >
             {option.icon}
           </Toggle>
