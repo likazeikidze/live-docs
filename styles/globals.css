@@ -34,6 +34,43 @@
   --foreground: #09111f;
 }
 
+.editor {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.tiptap {
+  padding: 2px 12px;
+  outline: none;
+  width: 100%;
+}
+
+/* For mobile */
+.floating-threads {
+  display: none;
+}
+
+/* For desktop */
+.anchored-threads {
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  position: absolute;
+  right: 12px;
+}
+
+@media (max-width: 640px) {
+  .floating-threads {
+    display: block;
+  }
+
+  .anchored-threads {
+    display: none;
+  }
+}
+
 @layer base {
   body {
     @apply bg-(--background) text-(--foreground) font-sans;
@@ -134,4 +171,16 @@
   .header {
     @apply min-h-23 min-w-full flex-nowrap bg-dark-100 flex w-full items-center justify-between gap-2 px-4 mb-2;
   }
+}
+
+.auth-page {
+  @apply flex h-screen w-full flex-col items-center justify-center gap-10;
+}
+
+.loader {
+  @apply flex size-full h-screen items-center justify-center gap-3 text-white;
+}
+
+.collaborative-room {
+  @apply flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden;
 }
