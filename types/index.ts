@@ -8,3 +8,8 @@ export type HeaderProps = {
 export type MenuBarProps = {
   editor: Editor | null;
 };
+
+export type createDocProps = {
+  userId: string;
+  email: string;
+};
