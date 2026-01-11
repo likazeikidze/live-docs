@@ -9,7 +9,7 @@ const Room = () => {
   return (
     <RoomProvider id="my-room">
       <ClientSideSuspense fallback={<div>Loading…</div>}>
-        <div className="collaborative-room">
+        <div className="flex-1 flex flex-col collaborative-room">
           <Header>
             <SignedOut>
               <SignInButton mode="modal">

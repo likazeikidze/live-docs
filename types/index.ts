@@ -13,3 +13,8 @@ export type createDocProps = {
   userId: string;
   email: string;
 };
+
+export type AddDocButtonProps = {
+  userId: string;
+  email: string;
+};

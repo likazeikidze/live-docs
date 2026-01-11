@@ -32,16 +32,16 @@ const Tiptap = () => {
     editorProps: {
       attributes: {
         class:
-          "border border-gray-300 rounded-lg p-4 min-h-[400px] focus:outline-none",
+          "border border-gray-300 rounded-lg p-4 w-full h-full min-h-[400px] focus:outline-none",
       },
     },
   });
 
   return (
-    <>
+    <div className="flex-1 h-full">
       <MenuBar editor={editor} />
       <EditorContent editor={editor} />
-    </>
+    </div>
   );
 };
 

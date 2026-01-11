@@ -1,5 +1,11 @@
+import Room from "@/components/Room";
+
 const DocumentPage = () => {
-  return <div className="max-w-3xl mx-auto py-8"></div>;
+  return (
+    <main className="h-screen flex flex-col">
+      <Room />
+    </main>
+  );
 };
 
 export default DocumentPage;
