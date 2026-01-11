@@ -19,7 +19,7 @@ export const createDoc = async ({ userId, email }: createDocProps) => {
     usersAccesses: {
       [email]: ["room:write"],
     },
-    defaultAccesses: [],
+    defaultAccesses: ["room:write"],
   });
 
   revalidatePath("/");

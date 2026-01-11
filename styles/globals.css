@@ -192,3 +192,7 @@
 .document-list-empty {
   @apply flex w-full max-w-182.5 flex-col items-center justify-center gap-5 rounded-lg bg-dark-200 px-10 py-8;
 }
+
+.users-list {
+  @apply hidden items-center justify-end -space-x-3 overflow-hidden sm:flex;
+}
