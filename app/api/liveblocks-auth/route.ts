@@ -8,26 +8,31 @@ export async function POST(request: Request) {
 
   const { id, emailAddresses, firstName, lastName, imageUrl } = clerkUser;
 
-  // Get the current user from your database
-  const user = {
-    id,
-    info: {
+  try {
+    // Get the current user from your database
+    const user = {
       id,
-      email: emailAddresses[0].emailAddress,
-      name: `${firstName} ${lastName}`,
-      avatar: imageUrl,
-      color: "FF0000",
-    },
-  };
+      info: {
+        id,
+        email: emailAddresses[0].emailAddress,
+        name: `${firstName} ${lastName}`,
+        avatar: imageUrl,
+        color: "FF0000",
+      },
+    };
 
-  // Identify the user and return the result
-  const { status, body } = await liveblocks.identifyUser(
-    {
-      userId: user.info.email,
-      groupIds: [], // Optional
-    },
-    { userInfo: user.info }
-  );
+    // Identify the user and return the result
+    const { status, body } = await liveblocks.identifyUser(
+      {
+        userId: user.info.email,
+        groupIds: [], // Optional
+      },
+      { userInfo: user.info }
+    );
 
-  return new Response(body, { status });
+    return new Response(body, { status });
+  } catch (error) {
+    console.error("Error identifying user with Liveblocks:", error);
+    return new Response("Internal Server Error", { status: 500 });
+  }
 }
