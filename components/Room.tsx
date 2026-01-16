@@ -5,18 +5,15 @@ import Header from "@/components/Header";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import ActiveUsers from "./ui/ActiveUsers";
+import Loader from "./ui/Loader";
 
-const Room = () => {
+const Room = ({ roomId, userId }: { roomId: string; userId: string }) => {
   return (
-    <RoomProvider id="my-room">
-      <ClientSideSuspense fallback={<div>Loading…</div>}>
-        <div className="flex-1 flex flex-col collaborative-room">
+    <RoomProvider id={roomId}>
+      <ClientSideSuspense fallback={<Loader />}>
+        <div className="collaborative-room flex flex-col">
           <Header>
-            <div className="flex items-center justify-center">
-              <p>Share</p>
-            </div>
-
-            <div className="flex justify-end w-full gap-2">
+            <div className="flex items-center gap-4">
               <ActiveUsers />
               <SignedOut>
                 <SignInButton mode="modal">

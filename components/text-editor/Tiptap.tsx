@@ -32,7 +32,7 @@ const Tiptap = () => {
     editorProps: {
       attributes: {
         class:
-          "border border-gray-300 rounded-lg p-4 mx- w-full h-full min-h-[400px] focus:outline-none",
+          "border border-gray-300 rounded-lg p-4 mx-w-full h-full min-h-[400px] focus:outline-none",
       },
     },
   });

@@ -1,4 +1,5 @@
 "use client";
+import { getClerkUsersData } from "@/lib/actions/user.actions";
 
 import {
   LiveblocksProvider,
@@ -9,7 +10,12 @@ import Loader from "@/components/ui/Loader";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   return (
-    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
+    <LiveblocksProvider
+      authEndpoint="/api/liveblocks-auth"
+      resolveUsers={async ({ userIds }) => {
+        return await getClerkUsersData({ userIds });
+      }}
+    >
       <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
     </LiveblocksProvider>
   );

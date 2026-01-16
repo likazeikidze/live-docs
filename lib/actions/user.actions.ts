@@ -1,14 +1,30 @@
-// "use server";
+"use server";
 
-// import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
-// export const getClerkUsersInfo = async ({ ids }: { ids: string[] }) => {
-//   const response = (await clerkClient()).users.getUserList({
-//     emailAddress: ids,
-//   });
+// app-specific user data
+export const getClerkUsersData = async ({ userIds }: { userIds: string[] }) => {
+  // This function receives a list of user IDs and you should return a list of user objects of the same size, in the same order.
+  try {
+    const { data } = await (clerkClient as any).users.getUserList({
+      emailAddress: userIds,
+    });
 
-//   try {
-//   } catch (error) {
-//     console.error("Error fetching user info from Clerk:", error);
-//   }
-// };
+    const users = data.map((user: any) => {
+      return {
+        id: user.id,
+        email: user.emailAddresses[0].emailAddress,
+        name: `${user.firstName} ${user.lastName}`,
+        avatar: user.imageUrl,
+      };
+    });
+
+    const orderedUsers = userIds.map((email) =>
+      users.find((user: any) => user.email === email)
+    );
+
+    return orderedUsers;
+  } catch (error) {
+    console.error("Error fetching user data from Clerk:", error);
+  }
+};
