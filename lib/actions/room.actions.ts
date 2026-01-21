@@ -13,7 +13,7 @@ export const createDoc = async ({ userId, email }: createDocProps) => {
     const metadata = {
       creatorId: userId,
       email,
-      title: "",
+      title: "Untitled",
     };
 
     const room = await liveblocks.createRoom(roomId, {
@@ -43,14 +43,34 @@ export const getDoc = async ({
   try {
     const room = await liveblocks.getRoom(roomId);
 
-    const hasAccess = Object.keys(room.usersAccesses).includes(userId);
+    // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
 
-    if (!hasAccess) {
-      throw new Error("Unauthorized");
-    }
+    // if (!hasAccess) {
+    //   throw new Error("Unauthorized");
+    // }
 
     return room;
   } catch (error) {
     console.error("Error getting a document:", error);
+  }
+};
+
+export const updateDoc = async ({
+  roomId,
+  title,
+}: {
+  roomId: string;
+  title: string;
+}) => {
+  try {
+    const room = await liveblocks.updateRoom(roomId, {
+      metadata: { title },
+    });
+
+    revalidatePath(`/documents/${roomId}`);
+
+    return room;
+  } catch (error) {
+    console.error("Error updating document:", error);
   }
 };

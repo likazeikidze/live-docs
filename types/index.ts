@@ -18,3 +18,9 @@ export type AddDocButtonProps = {
   userId: string;
   email: string;
 };
+
+export type DocumentMetadata = {
+  title: string;
+  email: string;
+  creatorId: string;
+};
