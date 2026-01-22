@@ -22,6 +22,7 @@ const Room = ({
   roomMetadata: DocumentMetadata;
 }) => {
   const [editing, setEditing] = useState(false);
+  // TODO: Fix loading state when clicking on homepage
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(roomMetadata.title);
 

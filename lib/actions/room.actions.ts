@@ -74,3 +74,13 @@ export const updateDoc = async ({
     console.error("Error updating document:", error);
   }
 };
+
+export const getDocs = async (email: string) => {
+  try {
+    const { data: rooms } = await liveblocks.getRooms({ userId: email });
+
+    return rooms;
+  } catch (error) {
+    console.error("Error getting documents:", error);
+  }
+};
