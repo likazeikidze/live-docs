@@ -22,9 +22,9 @@ const Room = ({
   roomMetadata: DocumentMetadata;
 }) => {
   const [editing, setEditing] = useState(false);
-  // TODO: Fix loading state when clicking on homepage
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(roomMetadata.title);
+  const [hasTitleChanged, setHasTitleChanged] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,22 +51,27 @@ const Room = ({
     }
   };
 
+  // Fix: missing filter/check conditions
   useEffect(() => {
     const handleOutsideClick = async (e: MouseEvent) => {
       if (
         containerRef.current &&
         !containerRef.current.contains(e.target as Node)
       ) {
-        setEditing(false);
-        setLoading(true);
+        if (editing && hasTitleChanged) {
+          setLoading(true);
 
-        try {
-          await updateDoc({ roomId, title });
-        } catch (error) {
-          console.error("Error updating document:", error);
-        } finally {
-          setLoading(false);
+          try {
+            await updateDoc({ roomId, title });
+            setHasTitleChanged(false);
+          } catch (error) {
+            console.error("Error updating document:", error);
+          } finally {
+            setLoading(false);
+          }
         }
+
+        setEditing(false);
       }
     };
 
@@ -75,7 +80,7 @@ const Room = ({
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [roomId, title]);
+  }, [roomId, title, hasTitleChanged]);
 
   useEffect(() => {
     if (editing) {
@@ -96,7 +101,10 @@ const Room = ({
                 <Input
                   ref={inputRef}
                   value={title}
-                  onChange={(e) => setTitle(e.target.value)}
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                    setHasTitleChanged(true);
+                  }}
                   className="text-sm md:text-lg text-white text-center border-none p-0 mx-1 min-w-[50%]"
                   placeholder="Change title"
                   onKeyDown={updateTitleHandler}
