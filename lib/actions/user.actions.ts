@@ -6,7 +6,8 @@ import { clerkClient } from "@clerk/nextjs/server";
 export const getClerkUsersData = async ({ userIds }: { userIds: string[] }) => {
   // This function receives a list of user IDs and you should return a list of user objects of the same size, in the same order.
   try {
-    const { data } = await (clerkClient as any).users.getUserList({
+    const client = await clerkClient();
+    const { data } = await client.users.getUserList({
       emailAddress: userIds,
     });
 
@@ -16,11 +17,12 @@ export const getClerkUsersData = async ({ userIds }: { userIds: string[] }) => {
         email: user.emailAddresses[0].emailAddress,
         name: `${user.firstName} ${user.lastName}`,
         avatar: user.imageUrl,
+        color: "#6c47ff",
       };
     });
 
     const orderedUsers = userIds.map((email) =>
-      users.find((user: any) => user.email === email)
+      users.find((user: any) => user.email === email),
     );
 
     return orderedUsers;

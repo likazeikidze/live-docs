@@ -24,3 +24,22 @@ export type DocumentMetadata = {
   email: string;
   creatorId: string;
 };
+
+export type UserType = "creator" | "editor" | "viewer";
+
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  color: string;
+  userType?: UserType;
+};
+
+export type RoomPermission = "room:read" | "room:write";
+
+export type Room = {
+  id: string;
+  metadata: DocumentMetadata;
+  usersAccesses: Record<string, RoomPermission[]>;
+};

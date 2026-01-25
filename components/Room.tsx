@@ -6,7 +6,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import ActiveUsers from "./ui/ActiveUsers";
 import Loader from "./ui/Loader";
-import { DocumentMetadata } from "@/types";
+import { DocumentMetadata, User, UserType } from "@/types";
 import { EditIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
@@ -16,10 +16,14 @@ const Room = ({
   roomId,
   userId,
   roomMetadata,
+  users,
+  currentUserType,
 }: {
   roomId: string;
   userId: string;
   roomMetadata: DocumentMetadata;
+  users: User[];
+  currentUserType: UserType;
 }) => {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,10 +33,8 @@ const Room = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const currentUserType = "editor";
-
   const updateTitleHandler = async (
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e.key === "Enter") {
       setLoading(true);
@@ -144,7 +146,8 @@ const Room = ({
               </SignedIn>
             </div>
           </Header>
-          <Tiptap />
+
+          <Tiptap roomId={roomId} currentUserType={currentUserType} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>

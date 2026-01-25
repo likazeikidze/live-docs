@@ -14,6 +14,7 @@ import {
   ListOrdered,
   List,
   HighlighterIcon,
+  PlusIcon,
 } from "lucide-react";
 
 const MenuBar = ({ editor }: MenuBarProps) => {
