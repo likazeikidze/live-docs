@@ -9,24 +9,21 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
-import MenuBar from "./MenuBar";
-import { UserType } from "@/types";
 import ThreadOverlay from "./ThreadOverlay";
-import Loader from "../ui/Loader";
 
-const Tiptap = ({
-  roomId,
-  currentUserType,
-}: {
-  roomId: string;
-  currentUserType: UserType;
-}) => {
-  const liveblocks = useLiveblocksExtension();
+const Tiptap = ({ roomId }: { roomId: string }) => {
+  const liveblocks = useLiveblocksExtension({
+    initialContent: "<p></p>",
+  });
+
+  // TODO: fix usernames appearing while typing in editor
 
   const editor = useEditor({
     extensions: [
       liveblocks,
       StarterKit.configure({
+        history: false,
+        undoRedo: false,
         bulletList: {
           HTMLAttributes: {
             class: "list-disc ml-3",
@@ -43,27 +40,26 @@ const Tiptap = ({
       }),
       TextAlign.configure({ types: ["heading", "paragraph"] }),
     ],
-    editable: currentUserType === "editor",
-    content: "<p></p>",
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
     editorProps: {
-      attributes: {
-        class:
-          "border border-gray-300 rounded-lg p-4 mx-w-full h-full min-h-[400px] focus:outline-none",
-      },
+      // attributes: {
+      //   class:
+      // },
     },
   });
 
-  if (!editor) {
-    return <Loader />;
-  }
+  if (!editor) return null;
 
   return (
-    <div className="flex-1 h-full">
-      {/* <MenuBar editor={editor} /> */}
+    <div className="flex-1 h-full max-w-full overflow-hidden">
       <Toolbar editor={editor} className="rounded-2xl mb-1 w-full" />
-      <EditorContent editor={editor} />
+
+      <EditorContent
+        editor={editor}
+        className="border border-gray-700 rounded-lg min-h-120 max-w-110 w-full p-4 focus:outline-none mx-auto overflow-y-auto wrap-break-word"
+      />
+
       <FloatingComposer editor={editor} style={{ width: "350px" }} />
 
       <ThreadOverlay editor={editor} />

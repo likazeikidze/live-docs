@@ -16,7 +16,9 @@ const Provider = ({ children }: { children: ReactNode }) => {
         return await getClerkUsersData({ userIds });
       }}
     >
-      <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
+      {children}
+      {/* NOTE: causes "rendered more hooks than during the previous render" error */}
+      {/* <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense> */}
     </LiveblocksProvider>
   );
 };

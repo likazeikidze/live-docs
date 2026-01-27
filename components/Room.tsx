@@ -6,7 +6,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { RoomProvider, ClientSideSuspense } from "@liveblocks/react/suspense";
 import ActiveUsers from "./ui/ActiveUsers";
 import Loader from "./ui/Loader";
-import { DocumentMetadata, User, UserType } from "@/types";
+import { DocumentMetadata } from "@/types";
 import { EditIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "./ui/input";
@@ -16,19 +16,17 @@ const Room = ({
   roomId,
   userId,
   roomMetadata,
-  users,
-  currentUserType,
 }: {
   roomId: string;
   userId: string;
   roomMetadata: DocumentMetadata;
-  users: User[];
-  currentUserType: UserType;
 }) => {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState(roomMetadata.title);
   const [hasTitleChanged, setHasTitleChanged] = useState(false);
+
+  const currentUserType = "editor";
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -53,7 +51,6 @@ const Room = ({
     }
   };
 
-  // Fix: missing filter/check conditions
   useEffect(() => {
     const handleOutsideClick = async (e: MouseEvent) => {
       if (
@@ -124,11 +121,11 @@ const Room = ({
                 />
               )}
 
-              {currentUserType !== "editor" && !editing && (
-                <p className="text-sm">
-                  You are not allowed to edit this title.
+              {/* {currentUserType !== "editor" && !editing && (
+                <p className="text-sm ml-3 bg-gray-700 p-3 rounded-full">
+                  You are not allowed to edit this title
                 </p>
-              )}
+              )} */}
 
               {loading && <p className="text-sm mx-2">Saving a new title...</p>}
             </div>
@@ -147,7 +144,7 @@ const Room = ({
             </div>
           </Header>
 
-          <Tiptap roomId={roomId} currentUserType={currentUserType} />
+          <Tiptap roomId={roomId} />
         </div>
       </ClientSideSuspense>
     </RoomProvider>

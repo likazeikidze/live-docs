@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { getDocs } from "@/lib/actions/room.actions";
 import Link from "next/link";
 import { timeAgo } from "@/lib/utils";
+import DeleteModal from "@/components/ui/DeleteModal";
 
 const HomePage = async () => {
   const clerkUser = await currentUser();
@@ -15,8 +16,7 @@ const HomePage = async () => {
   const userId = clerkUser.id;
   const email = clerkUser.emailAddresses[0].emailAddress;
 
-  const docs = await getDocs(email);
-  console.log(docs);
+  const docs = await getDocs();
 
   return (
     <main className="home-container px-4">
@@ -29,44 +29,45 @@ const HomePage = async () => {
         </div>
       </Header>
 
-      {docs.length > 0 ? (
-        <div className="document-list-container">
-          <div className="document-list-title">
-            <h3 className="text-xl md:text-2xl">All Documents</h3>
-            <AddDocButton userId={userId} email={email} />
-          </div>
-
-          <ul className="document-list">
-            {docs?.map(({ id, metadata, createdAt }) => (
-              <li key={id} className="document-list-item">
-                <Link
-                  href={`/documents/${id}`}
-                  className="flex items-center gap-5"
-                >
-                  <div>
-                    <Image
-                      src="/assets/icons/doc.svg"
-                      alt="document"
-                      width={42}
-                      height={42}
-                      className="hidden sm:block"
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <p className="font-bold text-xl">{metadata.title}</p>
-                    <p className="text-sm">{timeAgo(createdAt)}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+      {/* TODO: fix layout when there is no document */}
+      <div className="document-list-container">
+        <div className="document-list-title">
+          <h3 className="text-xl md:text-2xl">All Documents</h3>
+          <AddDocButton userId={userId} email={email} />
         </div>
-      ) : (
-        <div className="document-list-empty">
+
+        <ul className="document-list">
+          {docs?.map(({ id, metadata, createdAt }) => (
+            <li key={id} className="document-list-item">
+              <Link
+                href={`/documents/${id}`}
+                className="flex items-center gap-5"
+              >
+                <div>
+                  <Image
+                    src="/assets/icons/doc.svg"
+                    alt="document"
+                    width={42}
+                    height={42}
+                    className="hidden sm:block"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <p className="font-bold text-xl">{metadata.title}</p>
+
+                  <p className="text-sm">{timeAgo(createdAt)}</p>
+                </div>
+              </Link>
+              <DeleteModal roomId={id} />
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* <div className="document-list-empty">
           <Image src="/assets/icons/doc.svg" alt="doc" width={42} height={42} />
-        </div>
-      )}
+        </div> */}
     </main>
   );
 };

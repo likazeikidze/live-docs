@@ -3,6 +3,7 @@ import { AnchoredThreads, FloatingThreads } from "@liveblocks/react-tiptap";
 import { Editor } from "@tiptap/react";
 
 function ThreadOverlay({ editor }: { editor: Editor | null }) {
+  if (!editor) return null;
   const { threads } = useThreads({ query: { resolved: false } });
 
   return (

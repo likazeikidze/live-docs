@@ -206,7 +206,7 @@
 }
 
 .document-list-item {
-  @apply bg-gray-800 rounded-lg p-4 shadow-xl;
+  @apply bg-gray-800 rounded-lg p-4 shadow-xl flex items-center justify-between;
 }
 
 .users-list {

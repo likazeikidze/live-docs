@@ -1,6 +1,6 @@
 "use client";
 
-import { useOthers } from "@liveblocks/react";
+import { useOthers } from "@liveblocks/react/suspense";
 import Image from "next/image";
 
 const ActiveUsers = () => {

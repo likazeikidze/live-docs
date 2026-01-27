@@ -1,9 +1,10 @@
 "use server";
 
-import { createDocProps } from "@/types";
+import { createDocProps, DeleteModalProps } from "@/types";
 import { liveblocks } from "../liveblocks";
 import { nanoid } from "nanoid";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 // documents are modeled as Liveblocks rooms, so creating a document means provisioning a collaboration room with metadata and access control.
 export const createDoc = async ({ userId, email }: createDocProps) => {
@@ -43,12 +44,6 @@ export const getDoc = async ({
   try {
     const room = await liveblocks.getRoom(roomId);
 
-    // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
-
-    // if (!hasAccess) {
-    //   throw new Error("Unauthorized");
-    // }
-
     return room;
   } catch (error) {
     console.error("Error getting a document:", error);
@@ -75,12 +70,23 @@ export const updateDoc = async ({
   }
 };
 
-export const getDocs = async (email: string) => {
+// NOTE: removed userId/email parameter so everyone can have access to documents list
+export const getDocs = async () => {
   try {
-    const { data: rooms } = await liveblocks.getRooms({ userId: email });
-
+    const { data: rooms } = await liveblocks.getRooms();
     return rooms;
   } catch (error) {
     console.error("Error getting documents:", error);
+    return [];
+  }
+};
+
+export const deleteDoc = async ({ roomId }: DeleteModalProps) => {
+  try {
+    await liveblocks.deleteRoom(roomId);
+
+    revalidatePath("/");
+  } catch (error) {
+    console.error("Error deleting the document");
   }
 };

@@ -24,25 +24,7 @@ const DocumentPage = async ({
 
   if (!room) redirect("/");
 
-  const userEmails = Object.keys(room.usersAccesses);
-  const clerkUsers = await getClerkUsersData({ userIds: userEmails });
-
-  const usersWithRoles =
-    clerkUsers
-      ?.filter((user): user is User => !!user)
-      .map((clerkUser) => {
-        const access = room.usersAccesses[clerkUser.email];
-        return {
-          ...clerkUser,
-          clerkUserType: access?.includes("room:write") ? "editor" : "viewer",
-        };
-      }) || [];
-
-  const currentUserType = (room.usersAccesses[userId] || []).includes(
-    "room:write",
-  )
-    ? "editor"
-    : "viewer";
+  // TODO: Permissions/role-based access (later)
 
   return (
     <main className="h-screen flex flex-col">
@@ -50,8 +32,6 @@ const DocumentPage = async ({
         roomId={id}
         userId={userId}
         roomMetadata={room.metadata as DocumentMetadata}
-        users={usersWithRoles}
-        currentUserType={currentUserType}
       />
     </main>
   );
