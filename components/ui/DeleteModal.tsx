@@ -46,21 +46,25 @@ const DeleteModal = ({ roomId }: DeleteModalProps) => {
         />
       </DialogTrigger>
 
-      <DialogContent className="bg-gray-800 rounded-xl border-none shadow-gray-900">
+      <DialogContent className="bg-gray-300 rounded-xl border-none shadow-gray-900">
         <DialogHeader>
-          <DialogTitle>
+          <DialogTitle className="text-black">
             Are you sure you want to delete the document?
           </DialogTitle>
-          <DialogDescription className="text-white mt-2 wrap-break-word">
+          <DialogDescription className="text-black mt-2 wrap-break-word">
             This action cannot be undone. This will permanently delete your
             document.
           </DialogDescription>
           <Button
             disabled={loading}
-            className="bg-red-900 hover:bg-red-800 mt-3 max-w-2xs mx-auto disabled:opacity-50"
+            className="bg-red-700 hover:bg-red-600 mt-3 max-w-2xs mx-auto disabled:opacity-50"
             onClick={handleDeleteDoc}
           >
-            {loading ? <span>Deleting...</span> : <span>Yes, delete it</span>}
+            {loading ? (
+              <span className="text-white">Deleting...</span>
+            ) : (
+              <span className="text-white">Yes, delete it</span>
+            )}
           </Button>
         </DialogHeader>
       </DialogContent>

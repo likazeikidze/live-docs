@@ -104,28 +104,20 @@ const Room = ({
                     setTitle(e.target.value);
                     setHasTitleChanged(true);
                   }}
-                  className="text-sm md:text-lg text-white text-center border-none p-0 mx-1 min-w-[50%]"
+                  className="text-sm md:text-lg text-center border-none p-0 mx-1 min-w-[50%]"
                   placeholder="Change title"
                   onKeyDown={updateTitleHandler}
                 />
               ) : (
-                <p className="text-sm md:text-lg text-white text-center">
-                  {title}
-                </p>
+                <p className="text-sm md:text-lg text-center">{title}</p>
               )}
 
-              {currentUserType === "editor" && !editing && (
+              {!editing && (
                 <EditIcon
                   className="mx-3 cursor-pointer"
                   onClick={() => setEditing(true)}
                 />
               )}
-
-              {/* {currentUserType !== "editor" && !editing && (
-                <p className="text-sm ml-3 bg-gray-700 p-3 rounded-full">
-                  You are not allowed to edit this title
-                </p>
-              )} */}
 
               {loading && <p className="text-sm mx-2">Saving a new title...</p>}
             </div>

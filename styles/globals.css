@@ -25,13 +25,13 @@
 }
 
 :root {
-  --background: #09111f;
-  --foreground: #fff;
+  --background: #fff;
+  --foreground: #09111f;
 }
 
 .dark {
-  --background: #fff;
-  --foreground: #09111f;
+  --background: #09111f;
+  --foreground: #fff;
 }
 
 .editor {
@@ -73,7 +73,12 @@
 
 @layer base {
   body {
-    @apply bg-(--background) text-(--foreground) font-sans;
+    /* @apply bg-(--background) text-(--foreground) font-sans;
+    margin: 0; */
+
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
     margin: 0;
   }
 
@@ -169,8 +174,15 @@
   }
 
   .header {
-    @apply min-h-23 min-w-full flex-nowrap bg-dark-100 flex w-full items-center justify-between gap-2 px-4 mb-2;
+    @apply min-h-23 min-w-full flex-nowrap flex w-full items-center justify-between gap-2 px-4 mb-2;
+    background-color: var(--background);
+    color: var(--foreground);
   }
+}
+
+.logo-title {
+  @apply font-bold text-xl;
+  color: var(--foreground);
 }
 
 .auth-page {
@@ -178,7 +190,8 @@
 }
 
 .loader {
-  @apply flex size-full h-screen items-center justify-center gap-3 text-white;
+  @apply flex size-full h-screen items-center justify-center gap-3;
+  color: var(--foreground);
 }
 
 .collaborative-room {
@@ -190,11 +203,15 @@
 }
 
 .document-list-empty {
-  @apply flex w-full max-w-182.5 flex-col items-center justify-center gap-5 rounded-lg bg-dark-200 px-10 py-8;
+  @apply flex w-full max-w-182.5 flex-col items-center justify-center gap-5 rounded-lg px-10 py-8;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .document-list-container {
   @apply flex flex-col items-center w-full gap-10 mb-8;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .document-list-title {
@@ -206,9 +223,17 @@
 }
 
 .document-list-item {
-  @apply bg-gray-800 rounded-lg p-4 shadow-xl flex items-center justify-between;
+  @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-xl flex items-center justify-between;
 }
 
 .users-list {
   @apply hidden items-center justify-end -space-x-3 overflow-hidden sm:flex;
+}
+
+.collaboration-carets__label {
+  background-color: rgb(129, 129, 131);
+}
+
+.collaboration-carets__caret {
+  border-color: rgb(129, 129, 131);
 }

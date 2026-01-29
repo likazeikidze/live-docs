@@ -16,8 +16,6 @@ const Tiptap = ({ roomId }: { roomId: string }) => {
     initialContent: "<p></p>",
   });
 
-  // TODO: fix usernames appearing while typing in editor
-
   const editor = useEditor({
     extensions: [
       liveblocks,

@@ -6,13 +6,16 @@ const Header = ({ children }: HeaderProps) => {
   return (
     <div className="header">
       <Link href="/">
-        <Image
-          src="/assets/icons/logo.svg"
-          alt="logo"
-          width={120}
-          height={32}
-          className="hidden md:block"
-        />
+        <div className="flex items-center gap-2">
+          <Image
+            src="/assets/icons/logo-icon.svg"
+            alt="logo"
+            width={32}
+            height={32}
+            className="hidden md:block"
+          />
+          <p className="logo-title">Live Docs</p>
+        </div>
 
         <Image
           src="/assets/icons/logo-icon.svg"
