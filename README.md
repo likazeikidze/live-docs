@@ -61,17 +61,17 @@ npm run dev
 
 ### Homepage (Light & Dark Mode)
 
-![Homepage Light Mode](/assets/images/screenshots/homepage-light.png)
-![Homepage Dark Mode](/assets/images/screenshots/homepage-dark.png)
+![Homepage Light Mode](/public/assets/images/screenshots/homepage-light.png)
+![Homepage Dark Mode](/public/assets/images/screenshots/homepage-dark.png)
 
 ### Editor Page
 
-![Editor Page](/assets/images/screenshots/editor.png)
+![Editor Page](/public/assets/images/screenshots/editor.png)
 
 ### Live Collaboration
 
-![Live Collaboration](/assets/images/screenshots/live-collaboration.png)
+![Live Collaboration](/public/assets/images/screenshots/live-collaboration.png)
 
 ### Delete Modal
 
-![Delete Modal](/assets/images/screenshots/delete-modal.png)
+![Delete Modal](/public/assets/images/screenshots/delete-modal.png)
