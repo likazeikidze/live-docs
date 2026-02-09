@@ -1,6 +1,6 @@
 # Live Collaborative Editor (Liveblocks + Next.js)
 
-A real-time collaborative document editor built with **Next.js**, **Liveblocks**, and **Clerk** authentication.
+A real-time collaborative rich text editor built with **Next.js**, **Liveblocks**, **Tiptap**, and **Clerk** authentication.
 
 The app allows multiple users to edit the same document simultaneously with live cursors and shared state.
 
@@ -13,13 +13,14 @@ This project focuses on real-time collaboration, authentication, and modern fron
 - Authenticated users **(Clerk)**
 - Shared document state using **Liveblocks** rooms
 - Modern UI with **Tailwind CSS**
-- Permissions and role-based access may be added in future iterations.
+- Role-based access control for future iterations.
 
 ## Tech Stack
 
 - **Next.js** (App Router)
 - **TypeScript**
 - **Liveblocks** – real-time collaboration
+- **Tiptap** – rich text editor
 - **Clerk** – authentication
 - **Tailwind CSS**
 - Environment Variables (for local setup)
